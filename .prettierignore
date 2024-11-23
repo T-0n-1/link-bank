@@ -1,0 +1,15 @@
+venv/
+.idea/
+.git/
+node_modules/
+.vscode
+.DS_Store
+config.codekit3
+.gitignore
+dist/
+Thumbs.db
+.eslintcache
+.env_gauto
+.env
+eslint.config.mjs
+tsconfig.json

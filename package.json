@@ -1,0 +1,46 @@
+{
+  "name": "linkkipankki",
+  "version": "1.0.0",
+  "description": "This is the Final Project for school's Palvelintekniikat course",
+  "main": "./dist/Proxy.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./dist/App.js",
+    "dev": "concurrently \"nodemon\" \"browser-sync start --config bs-config.js\"",
+    "predev": "tsc -w &"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/T-0n-1/link-bank.git"
+  },
+  "author": "Toni Mertanen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/T-0n-1/link-bank/issues"
+  },
+  "homepage": "https://github.com/T-0n-1/link-bank#readme",
+  "dependencies": {
+    "@types/dotenv": "^6.1.1",
+    "@types/express": "^5.0.0",
+    "@types/joi": "^17.2.2",
+    "@types/mysql": "^2.15.26",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "joi": "^17.13.3",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.15.0",
+    "@types/chai": "^5.0.1",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^22.9.3",
+    "browser-sync": "^3.0.3",
+    "concurrently": "^9.1.0",
+    "eslint": "^9.15.0",
+    "globals": "^15.12.0",
+    "nodemon": "^3.1.7",
+    "prettier": "3.3.3",
+    "ts-node": "^10.9.2",
+    "typescript-eslint": "^8.15.0"
+  }
+}

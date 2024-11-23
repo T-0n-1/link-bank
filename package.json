@@ -5,7 +5,8 @@
   "main": "./dist/Proxy.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./dist/App.js",
+    "initDB": "node ./database/initializeDatabase.js",
+    "start": "node ./dist/Proxy.js",
     "dev": "concurrently \"nodemon\" \"browser-sync start --config bs-config.js\"",
     "predev": "tsc -w &"
   },
@@ -20,7 +21,9 @@
   },
   "homepage": "https://github.com/T-0n-1/link-bank#readme",
   "dependencies": {
+    "@types/axios": "^0.9.36",
     "@types/dotenv": "^6.1.1",
+    "@types/ejs": "^3.1.5",
     "@types/express": "^5.0.0",
     "@types/joi": "^17.2.2",
     "@types/mysql": "^2.15.26",

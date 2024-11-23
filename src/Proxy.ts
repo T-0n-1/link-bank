@@ -3,11 +3,12 @@ import Joi from "joi";
 import cors from "cors";
 import dotenv from "dotenv";
 
-dotenv.config();
+dotenv.config(); // Load environment variables from a .env file
 
-const port = process.env.PROXYPORT || 3210;
+const port = process.env.PROXYPORT || 3210; // Port the server will listen on
 
-const app: Express = express();
+const app: Express = express(); // Create an Express application
+const title = "LinkBank"; // Title of the website
 
 app.use(cors()); // Enable CORS for all origins
 app.use(express.json()); // Enable JSON body parsing
@@ -23,11 +24,7 @@ app.get("/", (req: Request, res: Response) => {
   } else {
     res.render("index", {
       title: title,
-      greeting: `${greeting()} - this is the main app's landing page`,
-      method: req.method,
-      path: req.path,
-      hostname: req.hostname,
-      port: `${port} - BrowserSync using port ${getPort()} for dev purposess`,
+      topicH1: `LinkBank`,
     });
   }
 });

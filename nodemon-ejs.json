@@ -1,0 +1,6 @@
+{
+  "watch": ["src/views"],
+  "ext": "ejs",
+  "ignore": ["dist", "node_modules"],
+  "exec": "cp -fR src/views dist/"
+}

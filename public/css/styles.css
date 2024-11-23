@@ -1,0 +1,25 @@
+h1 {
+  color: transparent;
+  background: linear-gradient(
+    90deg,
+    rgb(0, 0, 0) 0%,
+    rgba(255, 255, 255, 1) 5%,
+    rgba(87, 239, 201, 1) 10%,
+    rgb(0, 0, 0) 100%
+  );
+  background-clip: text;
+  background-size: 200%;
+  animation: glare 10s infinite;
+}
+
+@keyframes glare {
+  0% {
+    background-position: 20% 0%;
+  }
+  50% {
+    background-position: -100% 0%;
+  }
+  100% {
+    background-position: 20% 0%;
+  }
+}

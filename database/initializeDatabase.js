@@ -1,5 +1,3 @@
-// FIX PROCESS.ENV VARS AND TABLE/FIELDS NAMES AND VALUES
-
 /* eslint-disable no-undef */
 import dotenv from 'dotenv';
 import { createConnection } from 'mysql';
@@ -34,29 +32,23 @@ function runSQLCommands() {
         DROP TABLE IF EXISTS ??;
 
         CREATE TABLE ?? (
-            id INT PRIMARY KEY, 
-            fname VARCHAR(255) NOT NULL,
-            lname VARCHAR(255) NOT NULL,
-            birth DATE NOT NULL
+            id INT PRIMARY KEY AUTO_INCREMENT, 
+            linkName VARCHAR(255) NOT NULL,
+            link VARCHAR(70) NOT NULL,
+            description VARCHAR(400) NOT NULL
         );
         `, [process.env.DBTABLE, process.env.DBTABLE]);
-    console.log("Table Person ensured.");
+    console.log(`Table ${process.env.DBTABLE} ensured.`);
 
     // Insert sample data
     const result = connection.query(`
-            INSERT INTO Person (id, fname, lname, birth)
+            INSERT INTO ?? (linkName, link, description)
             VALUES
-                (1, 'Alice', 'Johnson', '1980-05-15'),
-                (2, 'John', 'Doe', '1990-01-01'),
-                (3, 'Jane', 'Smith', '1985-06-15'),
-                (4, 'Bob', 'Brown', '1975-12-31'),
-                (5, 'Eve', 'White', '2000-10-01'),
-                (6, 'Charlie', 'Green', '1995-03-20'),
-                (7, 'Grace', 'Black', '1988-07-04'),
-                (8, 'Harry', 'Gray', '1970-11-11'),
-                (9, 'Ivy', 'Taylor', '1992-09-30'),
-                (10, 'Kevin', 'Carter', '1983-04-25')
-        `);
+                ('Toni Mertanen', 'https://tonimertanen.fi', 'Potfolio website of Toni Mertanen'),
+                ('Webbidevaus.fi', 'https://webbidevaus.fi', 'Website for web development podcast Webbidevaus.fi'),
+                ('Turvakäräjät', 'https://turvakarajat.fi', 'Website for cybersecurity podcast Turvakäräjät'),
+                ('Herrassmieshakkerit', 'https://herrasmieshakkerit.fi', 'Website for cybersecurity podcast Herrassmieshakkerit - hosts Mikko Hyppönen and Tomi Tuominen');
+        `, [process.env.DBTABLE]);
     console.log(`Inserted ${result.affectedRows} rows into the Person table.`);
   } catch (error) {
     console.error("An error occurred:", error);

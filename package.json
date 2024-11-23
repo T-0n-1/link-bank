@@ -24,6 +24,7 @@
     "@types/express": "^5.0.0",
     "@types/joi": "^17.2.2",
     "@types/mysql": "^2.15.26",
+    "axios": "^1.7.7",
     "dotenv": "^16.4.5",
     "ejs": "^3.1.10",
     "express": "^4.21.1",

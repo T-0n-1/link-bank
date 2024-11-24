@@ -1,5 +1,5 @@
-import express, { Express } from "express";
-import cors from "cors";
+import express, { Express, Request, Response } from "express";
+import { whitelist, isOriginAllowed, setHeaders } from "./Utils";
 import dotenv from "dotenv";
 import backendRouter from "./routes/backendAPI";
 
@@ -9,7 +9,14 @@ const port: number = Number(process.env.BACKENDPORT) || 3456; // Port the server
 
 const app: Express = express(); // Create an Express application
 
-app.use(cors()); // Enable CORS for all origins
+// CORS middleware
+app.use((req: Request, res: Response, next) => {
+  const origin: string = req.headers.origin || "";
+  if (isOriginAllowed(origin, whitelist)) {
+    setHeaders(res, origin);
+  }
+  next();
+});
 app.use(express.json()); // Enable JSON body parsing
 app.use(express.urlencoded({ extended: true })); // Enable URL-encoded body parsing
 app.use(express.static("public")); // Serve static files from the public directory

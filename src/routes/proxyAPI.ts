@@ -61,4 +61,34 @@ router.get("/getbyid/:id", (req: Request, res: Response) => {
   }
 });
 
+router.post("/insert", (req: Request, res: Response) => {
+  const { error, value } = Joi.object({
+    linkName: Joi.string().min(2).max(50).required(),
+    link: Joi.string().uri().required(),
+    description: Joi.string().min(2).max(400).required(),
+  })
+    .unknown(false)
+    .validate(req.body);
+  if (error) {
+    res.status(400).json({ error: error.details[0].message });
+    return;
+  } else {
+    axios
+      .post(
+        `http://${process.env.SERVERNAME}:${process.env.BACKENDPORT}/api/insert`,
+        value,
+      )
+      .then((response) => {
+        return response.data;
+      })
+      .then((jsonObject) => res.json(jsonObject))
+      .catch((error) => {
+        console.error("Error inserting data: " + error);
+        res
+          .status(error.response?.status || 500)
+          .json({ error: error.response?.data || "Failed to insert data" });
+      });
+  }
+});
+
 export default router; // Export the router for use in main Proxy app

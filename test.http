@@ -5,3 +5,14 @@ GET http://{{$dotenv SERVERNAME}}:{{$dotenv PROXYPORT}}/api/getall
 ### GET link by id
 
 GET http://{{$dotenv SERVERNAME}}:{{$dotenv PROXYPORT}}/api/getbyid/1
+
+### POST new link
+
+POST http://{{$dotenv SERVERNAME}}:{{$dotenv PROXYPORT}}/api/insert
+Content-Type: application/json
+
+{
+    "linkName": "OpenAI",
+    "link": "https://www.openai.com",
+    "description": "OpenAI is an artificial intelligence research laboratory consisting of the for-profit OpenAI LP and the non-profit OpenAI Inc."
+}

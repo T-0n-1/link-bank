@@ -1,3 +1,7 @@
 ### GET all links
 
 GET http://{{$dotenv SERVERNAME}}:{{$dotenv PROXYPORT}}/api/getall
+
+### GET link by id
+
+GET http://{{$dotenv SERVERNAME}}:{{$dotenv PROXYPORT}}/api/getbyid/1

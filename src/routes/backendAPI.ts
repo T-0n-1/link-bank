@@ -6,7 +6,7 @@ import dotenv from "dotenv";
 
 dotenv.config(); // Load environment variables from a .env file
 
-const router: Router = express(); // Create an Express application
+const router: Router = Router(); // Create an Express application
 
 router.use(express.json()); // Enable JSON body parsing
 router.use(express.urlencoded({ extended: true })); // Enable URL-encoded body parsing

@@ -1,0 +1,3 @@
+### GET all links
+
+GET http://{{$dotenv SERVERNAME}}:{{$dotenv PROXYPORT}}/api/getall

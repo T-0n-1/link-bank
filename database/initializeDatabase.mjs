@@ -44,7 +44,7 @@ function runSQLCommands() {
     const result = connection.query(`
             INSERT INTO ?? (linkName, link, description)
             VALUES
-                ('Toni Mertanen', 'https://tonimertanen.fi', 'Potfolio website of Toni Mertanen'),
+                ('Toni Mertanen', 'https://tonimertanen.fi', 'Portfolio website of Toni Mertanen'),
                 ('Webbidevaus.fi', 'https://webbidevaus.fi', 'Website for web development podcast Webbidevaus.fi'),
                 ('Turvakäräjät', 'https://turvakarajat.fi', 'Website for cybersecurity podcast Turvakäräjät'),
                 ('Herrassmieshakkerit', 'https://herrasmieshakkerit.fi', 'Website for cybersecurity podcast Herrassmieshakkerit - hosts Mikko Hyppönen and Tomi Tuominen');

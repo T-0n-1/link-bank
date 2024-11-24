@@ -3,6 +3,7 @@ import mysql, { MysqlError, OkPacket } from "mysql";
 import { connectionPool, LinkRow } from "../Utils";
 import Joi from "joi";
 import dotenv from "dotenv";
+import type { queryArray } from "../Interfaces";
 
 dotenv.config(); // Load environment variables from a .env file
 
@@ -95,6 +96,67 @@ router.post("/insert", (req: Request, res: Response) => {
       message: "Row inserted successfully",
       insertId: results.insertId,
     });
+  });
+});
+
+router.put("/update", (req: Request, res: Response) => {
+  const schema = Joi.object({
+    id: Joi.number().integer().min(1).max(9999).required(),
+    linkName: Joi.string().max(15).optional(),
+    link: Joi.string().uri().optional(),
+    description: Joi.string().optional(),
+  }).unknown(false);
+  const { error, value } = schema.validate(req.body);
+  if (error) {
+    res.status(400).json({ error: error.details[0].message });
+    return;
+  }
+  const { id, ...fieldsToUpdate } = value;
+  if (Object.keys(fieldsToUpdate).length === 0) {
+    res.status(400).json({ error: "No fields to update provided." });
+    return;
+  }
+  const setClauses: string[] = [];
+  const queryValues: queryArray = [process.env.DBTABLE];
+  for (const key in fieldsToUpdate) {
+    setClauses.push("?? = ?");
+    queryValues.push(key, fieldsToUpdate[key]);
+  }
+  const queryStr = `
+    UPDATE ?? 
+    SET ${setClauses.join(", ")} 
+    WHERE ?? = ?
+  `;
+  queryValues.push("id", id);
+  const query = mysql.format(queryStr, queryValues);
+  connectionPool.query(query, (err: MysqlError, okPacket: OkPacket) => {
+    if (err) {
+      res.status(400).send(err.sqlMessage);
+      return;
+    }
+    console.log(`Row updated with id: ${id}`);
+    res.json({ message: `Rows changed: ${okPacket.changedRows}` });
+  });
+});
+
+router.delete("/delete/:id", (req: Request, res: Response) => {
+  const schema = Joi.object({
+    id: Joi.number().integer().min(1).max(9999),
+  }).unknown(false);
+  const { error, value } = schema.validate(req.params);
+  if (error) {
+    res.status(400).json({ error: error.details[0].message });
+    return;
+  }
+  const queryStr = "DELETE FROM ?? WHERE ?? = ?";
+  const query = mysql.format(queryStr, [process.env.DBTABLE, "id", value.id]);
+  connectionPool.query(query, (err: MysqlError, okPacket: OkPacket) => {
+    if (err) {
+      res.status(400).send(err.sqlMessage);
+      return;
+    }
+    console.log(`Row deleted with id: ${value.id}`);
+    res.json({ message: `Rows deleted: ${okPacket.affectedRows}` });
   });
 });
 

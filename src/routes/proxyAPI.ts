@@ -91,4 +91,60 @@ router.post("/insert", (req: Request, res: Response) => {
   }
 });
 
+router.put("/update", (req: Request, res: Response) => {
+  const schema = Joi.object({
+    id: Joi.number().integer().min(1).max(9999).required(),
+    linkName: Joi.string().max(15).optional(),
+    link: Joi.string().uri().optional(),
+    description: Joi.string().optional(),
+  }).unknown(false);
+  const { error, value } = schema.validate(req.body);
+  if (error) {
+    res.status(400).json({ error: error.details[0].message });
+    return;
+  } else {
+    axios
+      .put(
+        `http://${process.env.SERVERNAME}:${process.env.BACKENDPORT}/api/update`,
+        value,
+      )
+      .then((response) => {
+        return response.data;
+      })
+      .then((jsonObject) => res.json(jsonObject))
+      .catch((error) => {
+        console.error("Error updating data: " + error);
+        res
+          .status(error.response?.status || 500)
+          .json({ error: error.response?.data || "Failed to update data" });
+      });
+  }
+});
+
+router.delete("/delete/:id", (req: Request, res: Response) => {
+  const schema = Joi.object({
+    id: Joi.number().integer().min(1).max(9999),
+  }).unknown(false);
+  const { error, value } = schema.validate(req.params);
+  if (error) {
+    res.status(400).json({ error: error.details[0].message });
+    return;
+  } else {
+    axios
+      .delete(
+        `http://${process.env.SERVERNAME}:${process.env.BACKENDPORT}/api/delete/${value.id}`,
+      )
+      .then((response) => {
+        return response.data;
+      })
+      .then((jsonObject) => res.json(jsonObject))
+      .catch((error) => {
+        console.error("Error deleting data: " + error);
+        res
+          .status(error.response?.status || 500)
+          .json({ error: error.response?.data || "Failed to delete data" });
+      });
+  }
+});
+
 export default router; // Export the router for use in main Proxy app

@@ -9,9 +9,4 @@ export interface Link {
   description: string;
 }
 
-export type Result = {
-  insertId: number;
-  linkName: string;
-  link: string;
-  description: string;
-};
+export type queryArray = (string | number | NodeJS.process)[];

@@ -4,7 +4,7 @@ GET http://{{$dotenv SERVERNAME}}:{{$dotenv PROXYPORT}}/api/getall
 
 ### GET link by id
 
-GET http://{{$dotenv SERVERNAME}}:{{$dotenv PROXYPORT}}/api/getbyid/1
+GET http://{{$dotenv SERVERNAME}}:{{$dotenv PROXYPORT}}/api/getbyid/3
 
 ### POST new link
 
@@ -16,3 +16,17 @@ Content-Type: application/json
     "link": "https://www.openai.com",
     "description": "OpenAI is an artificial intelligence research laboratory consisting of the for-profit OpenAI LP and the non-profit OpenAI Inc."
 }
+
+### Using PUT update existing link by id
+
+PUT http://{{$dotenv SERVERNAME}}:{{$dotenv PROXYPORT}}/api/update
+Content-Type: application/json
+
+{
+    "id": 5,
+    "description": "OpenAI is an AI research laboratory."
+}
+
+### DELETE link by id
+
+DELETE http://{{$dotenv SERVERNAME}}:{{$dotenv PROXYPORT}}/api/delete/5

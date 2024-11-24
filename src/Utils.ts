@@ -8,6 +8,7 @@ dotenv.config();
 // Whitelist of allowed origins for backend
 export const whitelist: string[] = [
   `${process.env.SERVERNAME}:${process.env.PROXYPORT}`,
+  `${process.env.SERVERNAME}:${process.env.BROWSERSYNCPORT}`,
 ];
 
 // Function for checking if the request is from a whitelisted origin
@@ -26,7 +27,7 @@ export class LinkRow implements Link {
   link: string;
   description: string;
   constructor(
-    id: number,
+    id: number = 0,
     linkName: string = "no linkName",
     link: string = "no link",
     description: string = "no description",

@@ -1,4 +1,6 @@
-export type EJSData = string | number | object;
+export type EJSData = {
+  [key: string]: string | number | object;
+};
 
 export interface Link {
   id: number;

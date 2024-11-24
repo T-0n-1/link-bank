@@ -4,19 +4,21 @@ import cors from "cors";
 import dotenv from "dotenv";
 import proxyRouter from "./routes/proxyAPI";
 import type { EJSData } from "./Interfaces";
+import path from "path";
 
 dotenv.config(); // Load environment variables from a .env file
 
 const port: number = Number(process.env.PROXYPORT) || 3210; // Port the server will listen on
 
 const app: Express = express(); // Create an Express application
-let EJSData: EJSData[]; // Data to pass to the EJS template
+let EJSData: EJSData; // Data to pass to the EJS template
 
 app.use(cors()); // Enable CORS for all origins
 app.use(express.json()); // Enable JSON body parsing
 app.use(express.urlencoded({ extended: true })); // Enable URL-encoded body parsing
 app.use(express.static("public")); // Serve static files from the public directory
-app.set("viewengine", "ejs"); // Set the view engine to EJS
+app.set("view engine", "ejs"); // Set the view engine to EJS
+app.set("views", path.join(__dirname, "views"));
 app.use("/api", proxyRouter);
 
 // Route for the home page with basic GET request
@@ -26,7 +28,10 @@ app.get("/", (req: Request, res: Response) => {
   if (error) {
     res.status(400).json({ error: error.details[0].message });
   } else {
-    EJSData = ["LinkBank", "LinkBank"];
+    EJSData = {
+      title: "LinkBank",
+      topicH1: "LinkBank",
+    };
     res.render("index", EJSData);
   }
 });

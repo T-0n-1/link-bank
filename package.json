@@ -5,7 +5,7 @@
   "main": "./dist/Proxy.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "initDB": "node ./database/initializeDatabase.js",
+    "initDB": "node ./database/initializeDatabase.mjs",
     "start": "node ./dist/Proxy.js",
     "dev": "concurrently \"nodemon --config nodemon-ejs.json\" \"nodemon --config nodemon-app.json\" \"browser-sync start --config bs-config.js\"",
     "predev": "tsc -w & node ./dist/Backend.js &"

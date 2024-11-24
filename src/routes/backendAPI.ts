@@ -37,4 +37,27 @@ router.get("/getAll", (req: Request, res: Response) => {
   }
 });
 
+router.get("/getbyid/:id", (req: Request, res: Response) => {
+  const querySchema = Joi.object({
+    id: Joi.number().integer().min(1).max(9999).required(),
+  }).unknown(false);
+  const { value, error } = querySchema.validate(req.params);
+  if (error) {
+    res.status(400).json({ error: error.details[0].message });
+  } else {
+    const queryStr: string = "SELECT * FROM ?? WHERE id = ?";
+    const query: string = mysql.format(queryStr, [
+      process.env.DBTABLE,
+      value.id,
+    ]);
+    connectionPool.query(query, (err: MysqlError, rows: LinkRow[]) => {
+      if (err) {
+        res.status(400).send(err.sqlMessage);
+        return;
+      }
+      res.json(rows);
+    });
+  }
+});
+
 export default router; // Export the router for use in main Backend app

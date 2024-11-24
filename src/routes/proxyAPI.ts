@@ -38,17 +38,17 @@ router.get("/getAll", (req: Request, res: Response) => {
 });
 
 // Route for GETting a single row from the database
-router.get("/getonerow/:id", (req: Request, res: Response) => {
+router.get("/getbyid/:id", (req: Request, res: Response) => {
   const querySchema = Joi.object({
     id: Joi.number().integer().min(1).max(9999).required(),
   }).unknown(false);
-  const { error } = querySchema.validate(req.params);
+  const { value, error } = querySchema.validate(req.params);
   if (error) {
     res.status(400).json({ error: error.details[0].message });
   } else {
     axios
       .get(
-        `http://${process.env.SERVERNAME}:${process.env.BACKENDPORT}/api/getonerow/${req.params.id}`,
+        `http://${process.env.SERVERNAME}:${process.env.BACKENDPORT}/api/getbyid/${value.id}`,
       )
       .then((response) => {
         return response.data;

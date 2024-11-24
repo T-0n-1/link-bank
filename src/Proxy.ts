@@ -31,4 +31,4 @@ app.get("/", (req: Request, res: Response) => {
   }
 });
 
-app.listen(port, () => console.log(`Proxyserver listening on port ${port}`));
+app.listen(port, () => console.log(`Proxy server listening on port ${port}`));

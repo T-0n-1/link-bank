@@ -99,6 +99,7 @@ router.post("/insert", (req: Request, res: Response) => {
   });
 });
 
+// Route for PUTting an update to a row in the database
 router.put("/update", (req: Request, res: Response) => {
   const schema = Joi.object({
     id: Joi.number().integer().min(1).max(9999).required(),
@@ -139,6 +140,7 @@ router.put("/update", (req: Request, res: Response) => {
   });
 });
 
+// Route for DELETEing a row from the database
 router.delete("/delete/:id", (req: Request, res: Response) => {
   const schema = Joi.object({
     id: Joi.number().integer().min(1).max(9999),

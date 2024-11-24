@@ -61,6 +61,7 @@ router.get("/getbyid/:id", (req: Request, res: Response) => {
   }
 });
 
+// Route for GETting one row from the database
 router.post("/insert", (req: Request, res: Response) => {
   const { error, value } = Joi.object({
     linkName: Joi.string().min(2).max(50).required(),
@@ -91,6 +92,7 @@ router.post("/insert", (req: Request, res: Response) => {
   }
 });
 
+// Route for updating one row in the database using PUT method
 router.put("/update", (req: Request, res: Response) => {
   const schema = Joi.object({
     id: Joi.number().integer().min(1).max(9999).required(),
@@ -121,6 +123,7 @@ router.put("/update", (req: Request, res: Response) => {
   }
 });
 
+// Route for deleting one row from the database
 router.delete("/delete/:id", (req: Request, res: Response) => {
   const schema = Joi.object({
     id: Joi.number().integer().min(1).max(9999),

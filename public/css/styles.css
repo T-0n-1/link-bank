@@ -56,6 +56,7 @@ body {
 
 .navbar_items a {
   color: #e3dada;
+  text-decoration: none;
 }
 
 /* Landscape media query */

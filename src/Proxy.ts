@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import proxyRouter from "./routes/proxyAPI";
 import type { EJSData } from "./Interfaces";
 import path from "path";
+import { mainContent } from "./Utils";
 
 dotenv.config(); // Load environment variables from a .env file
 
@@ -19,7 +20,7 @@ app.use(express.urlencoded({ extended: true })); // Enable URL-encoded body pars
 app.use(express.static("public")); // Serve static files from the public directory
 app.set("view engine", "ejs"); // Set the view engine to EJS
 app.set("views", path.join(__dirname, "views"));
-app.use("/api", proxyRouter);
+app.use("/api", proxyRouter); // Use the proxyAPI router for all routes starting with /api
 
 // Route for the home page with basic GET request
 app.get("/", (req: Request, res: Response) => {
@@ -31,6 +32,7 @@ app.get("/", (req: Request, res: Response) => {
     EJSData = {
       title: "LinkBank",
       topicH1: "LinkBank",
+      content: mainContent,
     };
     res.render("index", EJSData);
   }

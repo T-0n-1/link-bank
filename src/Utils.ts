@@ -50,3 +50,25 @@ export const connectionPool: Pool = createPool({
   user: process.env.DBUSER,
   password: process.env.DBPASSWORD,
 });
+
+export const mainContent: string = `
+      <h2>Welcome to home of tech related links</h2>
+    <p>Click the links to interact with app:</p>
+    <ul>
+      <li>
+        Home
+        <p>Takes you back home to this main page.</p>
+      </li>
+      <li>
+        List all links
+        <p>Fetches all links from MySQL database and lists them.</p>
+      </li>
+      <li>
+        Add new link
+        <p>Create new link and post it to database.</p>
+      </li>
+      <li>
+        App in GitHub
+        <p>App source code in GitHub</p>
+      </li>
+    </ul>`;

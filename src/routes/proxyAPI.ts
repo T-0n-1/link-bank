@@ -4,7 +4,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import type { EJSData } from "../Interfaces";
 import axios from "axios";
-import { listContent, fetchLinks } from "../Utils";
+import { Link } from "../Interfaces";
 
 dotenv.config(); // Load environment variables from a .env file
 
@@ -16,10 +16,31 @@ router.use(express.json()); // Enable JSON body parsing
 router.use(express.urlencoded({ extended: true })); // Enable URL-encoded body parsing
 router.use(express.static("public")); // Serve static files from the public directory
 
-// Route for rendering main component
+// Route for rendering listOfAllLinks.ejs
 router.get("/links", async (req: Request, res: Response) => {
-  await res.render("index", listContent);
-  fetchLinks();
+  try {
+    // Fetching data from the API
+    const response = await fetch("http://localhost:3000/api/getAll");
+    // Checking if the response is OK
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const result: Link[] = await response.json();
+    // Rendering the template with data
+    res.render("list", {
+      title: "LinkBank - List of all Links",
+      topicH1: "LinkBank",
+      links: result, // Ensure `links` is always an array
+    });
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    // Rendering the template with fallback values
+    res.render("list", {
+      title: "LinkBank - Error",
+      topicH1: "Error",
+      links: [],
+    });
+  }
 });
 
 // Route for GETting all rows from the database

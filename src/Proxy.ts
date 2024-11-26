@@ -5,7 +5,6 @@ import dotenv from "dotenv";
 import proxyRouter from "./routes/proxyAPI";
 import type { EJSData } from "./Interfaces";
 import path from "path";
-import { mainContent } from "./Utils";
 
 dotenv.config(); // Load environment variables from a .env file
 
@@ -32,7 +31,6 @@ app.get("/", (req: Request, res: Response) => {
     EJSData = {
       title: "LinkBank",
       topicH1: "LinkBank",
-      content: mainContent,
     };
     res.render("index", EJSData);
   }

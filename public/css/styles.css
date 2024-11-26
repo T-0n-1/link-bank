@@ -117,30 +117,3 @@ body {
   background-color: #6c757d;
   color: #fff;
 }
-
-.main_list {
-  display: flex;
-  flex-direction: row; /* Row layout for scrollable list and details */
-  height: 100%; /* Adjust as needed */
-}
-
-.link-list {
-  flex: 1; /* Take up 33% of space */
-  max-width: 33%;
-  overflow-y: auto; /* Makes it scrollable */
-  border-right: 1px solid #ccc; /* Optional: Separator styling */
-  padding: 1rem;
-}
-
-.link-item {
-  cursor: pointer;
-  padding: 0.5rem;
-  margin: 0.5rem 0;
-  background: #f8f9fa;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-.link-item:hover {
-  background: #e9ecef;
-}

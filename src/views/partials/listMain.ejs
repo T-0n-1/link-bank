@@ -1,0 +1,14 @@
+<main class="main">
+  <section>
+    <h2>List of links</h2>
+    <ul>
+      <% if (links) { %>
+        <% links.forEach(element => { %>
+          <li><%= element.id %>: <%= element.linkName %> ( <%= element.link %> ) <%= element.description %></li>
+        <% }) %>
+      <% } else { %>
+        <p>No links available at the moment.</p>
+      <% } %>
+    </ul>
+  </section>
+</main>

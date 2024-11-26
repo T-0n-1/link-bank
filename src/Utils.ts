@@ -72,3 +72,42 @@ export const mainContent: string = `
         <p>App source code in GitHub</p>
       </li>
     </ul>`;
+
+export const listContent = {
+  title: "LinkBank - List of links",
+  topicH1: "List of links",
+  content: `<h2>Links List</h2>
+  <ul id="links-list">
+    <!-- Fetched links will be inserted here -->
+  </ul>`,
+};
+
+export async function fetchLinks() {
+  try {
+    const response = await fetch(
+      `${process.env.SERVERNAME}:${process.env.PROXYPORT}/api/getAll`,
+    );
+    if (!response.ok) {
+      throw new Error("Failed to fetch links");
+    }
+    const links = await response.json();
+
+    // Clear the current list
+    const listContainer = document.getElementById("links-list")!;
+    listContainer.innerHTML = "";
+
+    // Add each link to the list
+    links.forEach((link: Link) => {
+      const listItem = document.createElement("li");
+      const anchor = document.createElement("a");
+      anchor.href = link.link;
+      anchor.textContent = link.linkName;
+      anchor.target = "_blank";
+      listItem.appendChild(anchor);
+      listContainer.appendChild(listItem);
+    });
+  } catch (error) {
+    console.error("Error fetching links:", error);
+    alert("Failed to load links. Please try again.");
+  }
+}

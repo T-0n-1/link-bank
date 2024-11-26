@@ -132,11 +132,6 @@ body {
   padding: 1rem;
 }
 
-.link-details {
-  flex: 2; /* Take up 67% of space */
-  padding: 1rem;
-}
-
 .link-item {
   cursor: pointer;
   padding: 0.5rem;

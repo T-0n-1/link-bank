@@ -85,13 +85,12 @@ export const listContent = {
 export async function fetchLinks() {
   try {
     const response = await fetch(
-      `${process.env.SERVERNAME}:${process.env.PROXYPORT}/api/getAll`,
+      `http://${process.env.SERVERNAME}:${process.env.PROXYPORT}/api/getAll`,
     );
     if (!response.ok) {
       throw new Error("Failed to fetch links");
     }
     const links = await response.json();
-
     // Clear the current list
     const listContainer = document.getElementById("links-list")!;
     listContainer.innerHTML = "";
@@ -108,6 +107,5 @@ export async function fetchLinks() {
     });
   } catch (error) {
     console.error("Error fetching links:", error);
-    alert("Failed to load links. Please try again.");
   }
 }

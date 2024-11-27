@@ -2,9 +2,10 @@
   <section class="scrollable">
     <h2>List of links</h2>
     <ul id="link_list">
-      <% if (links) { %>
+      <% if (links && links.length > 0) { %>
         <% links.forEach(element => { %>
           <li class="link_list_item"><%= element.id %>: <%= element.linkName %> ( <a href="<%= element.link %>" target="_blank"><%= element.link %></a> ) <%= element.description %></a></li>
+          <button onclick="editItem(<%= element.id %>)">Edit link</button><button onclick="deleteItem(`[<%= url %>, <%= element.id %>]`)">Delete link</button>
         <% }) %>
       <% } else { %>
         <p>No links available at the moment.</p>

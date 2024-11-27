@@ -29,7 +29,7 @@ body {
   margin: 0;
   padding: 0;
   max-height: 100vh;
-  overflow-y: hidden;
+  /* overflow-y: hidden; */
   font-family:
     system-ui,
     -apple-system,

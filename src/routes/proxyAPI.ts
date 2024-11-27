@@ -20,7 +20,8 @@ router.use(express.static("public")); // Serve static files from the public dire
 router.get("/links", async (req: Request, res: Response) => {
   try {
     // Fetching data from the API
-    const response = await fetch("http://localhost:3000/api/getAll");
+    const url = `http://${process.env.SERVERNAME}:${process.env.PROXYPORT}/api/getAll`;
+    const response = await fetch(url);
     // Checking if the response is OK
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);

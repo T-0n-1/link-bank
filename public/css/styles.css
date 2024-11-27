@@ -28,19 +28,31 @@ h1 {
 body {
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-direction: column; /* Default portrait mode */
-  min-height: 100vh;
+  max-height: 100vh;
+  overflow-y: hidden;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    "Open Sans",
+    "Helvetica Neue",
+    sans-serif;
 }
 
 .wrapper {
   display: flex;
   flex-direction: column; /* Default for portrait */
-  flex-grow: 1;
+  /* flex-grow: 1; */
+  height: 100vh;
 }
 
 .content {
-  flex-grow: 1;
+  /* flex-grow: 1; */
 }
 
 .navbar_items {
@@ -113,7 +125,18 @@ body {
   background-color: #e9ecef;
 }
 
+.scrollable {
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
 .footer {
   background-color: #6c757d;
   color: #fff;
+}
+
+#link_list li {
+  margin-bottom: 40%;
+  text-decoration: none;
 }

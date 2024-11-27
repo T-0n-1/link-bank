@@ -1,10 +1,10 @@
 <main class="main">
-  <section>
+  <section class="scrollable">
     <h2>List of links</h2>
-    <ul>
+    <ul id="link_list">
       <% if (links) { %>
         <% links.forEach(element => { %>
-          <li><%= element.id %>: <%= element.linkName %> ( <%= element.link %> ) <%= element.description %></li>
+          <li class="link_list_item"><%= element.id %>: <%= element.linkName %> ( <%= element.link %> ) <%= element.description %></li>
         <% }) %>
       <% } else { %>
         <p>No links available at the moment.</p>

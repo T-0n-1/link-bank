@@ -53,6 +53,7 @@ body {
 
 .content {
   flex-grow: 1;
+  height: 100%;
 }
 
 .navbar_items {
@@ -123,17 +124,17 @@ body {
   flex-grow: 1;
   padding: 1rem;
   background-color: #e9ecef;
-}
-
-.scrollable {
-  min-height: 0;
-  overflow-y: auto;
-  overflow-x: hidden;
+  height: 100%;
 }
 
 .footer {
   background-color: #6c757d;
   color: #fff;
+}
+
+li > p {
+  margin-top: 1.2%;
+  margin-bottom: 2.2%;
 }
 
 #link_list li {

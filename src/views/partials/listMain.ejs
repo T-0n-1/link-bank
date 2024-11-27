@@ -4,7 +4,7 @@
     <ul id="link_list">
       <% if (links) { %>
         <% links.forEach(element => { %>
-          <li class="link_list_item"><%= element.id %>: <%= element.linkName %> ( <%= element.link %> ) <%= element.description %></li>
+          <li class="link_list_item"><%= element.id %>: <%= element.linkName %> ( <a href="<%= element.link %>" target="_blank"><%= element.link %></a> ) <%= element.description %></a></li>
         <% }) %>
       <% } else { %>
         <p>No links available at the moment.</p>

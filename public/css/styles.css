@@ -51,6 +51,10 @@ body {
   height: 100vh;
 }
 
+.main {
+  overflow-y: auto;
+}
+
 .content {
   flex-grow: 1;
   height: 100%;

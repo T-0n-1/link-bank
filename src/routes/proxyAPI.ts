@@ -18,31 +18,37 @@ router.use(express.static("public")); // Serve static files from the public dire
 
 // Route for rendering listOfAllLinks.ejs
 router.get("/links", async (req: Request, res: Response) => {
-  try {
-    // Fetching data from the API
-    const helperURL = `${process.env.SERVERNAME}, ${process.env.PROXYPORT}`;
-    const url = `http://${process.env.SERVERNAME}:${process.env.PROXYPORT}/api/getAll`;
-    const response = await fetch(url);
-    // Checking if the response is OK
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
+  const querySchema = Joi.object().unknown(false);
+  const { error } = querySchema.validate(req.query);
+  if (error) {
+    res.status(400).json({ error: error.details[0].message });
+  } else {
+    try {
+      // Fetching data from the API
+      const helperURL = `${process.env.SERVERNAME}, ${process.env.PROXYPORT}`;
+      const url = `http://${process.env.SERVERNAME}:${process.env.PROXYPORT}/api/getAll`;
+      const response = await fetch(url);
+      // Checking if the response is OK
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const result: Link[] = await response.json();
+      // Rendering the template with data
+      res.render("list", {
+        title: "LinkBank - List of all Links",
+        topicH1: "LinkBank",
+        url: helperURL,
+        links: result, // Ensure `links` is always an array
+      });
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      // Rendering the template with fallback values
+      res.render("list", {
+        title: "LinkBank - Error",
+        topicH1: "Error",
+        links: [],
+      });
     }
-    const result: Link[] = await response.json();
-    // Rendering the template with data
-    res.render("list", {
-      title: "LinkBank - List of all Links",
-      topicH1: "LinkBank",
-      url: helperURL,
-      links: result, // Ensure `links` is always an array
-    });
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    // Rendering the template with fallback values
-    res.render("list", {
-      title: "LinkBank - Error",
-      topicH1: "Error",
-      links: [],
-    });
   }
 });
 

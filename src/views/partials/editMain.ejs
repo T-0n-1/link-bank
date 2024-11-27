@@ -1,0 +1,24 @@
+<main class="main">
+  <section>
+    <h2>Welcome to home of tech related links</h2>
+    <form class="edit-form" id="editForm" onsubmit="submitEdit(event)">
+      <label>
+        Link Text:
+        <input type="text" id="editText" required maxlength="255" />
+      </label>
+      <br />
+      <label>
+        Link URL:
+        <input type="url" id="editUrl" required maxlength="2048" />
+      </label>
+      <br />
+      <label>
+        Link Description:
+        <input type="url" id="editDescription" required maxlength="2048" />
+      </label>
+      <br />
+      <button type="submit">Save</button>
+      <button type="button" onclick="cancelEdit()">Cancel</button>
+    </form>
+  </section>
+</main>

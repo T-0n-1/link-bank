@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <!-- Header -->
+      <%- include('partials/header') %>
+
+      <!-- Content: Navbar + Main -->
+      <div class="content">
+        <%- include('partials/navbar') %> <%- include('partials/editMain.ejs', { links: links, url: url })
+        %>
+      </div>
+
+      <!-- Footer -->
+      <%- include('partials/footer') %>
+    </div>
+    <script src="js/frontendScript.js"></script>
+  </body>
+</html>

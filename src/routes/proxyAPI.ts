@@ -38,7 +38,7 @@ router.get("/links", async (req: Request, res: Response) => {
         title: "LinkBank - List of all Links",
         topicH1: "LinkBank",
         url: helperURL,
-        links: result, // Ensure `links` is always an array
+        links: result,
       });
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -47,6 +47,46 @@ router.get("/links", async (req: Request, res: Response) => {
         title: "LinkBank - Error",
         topicH1: "Error",
         links: [],
+      });
+    }
+  }
+});
+
+// Route for rendering editLink.ejs
+router.get("/edit/:id", async (req: Request, res: Response) => {
+  const querySchema = Joi.object({
+    id: Joi.number().integer().min(1).max(9999).required(),
+  }).unknown(false);
+  const { value, error } = querySchema.validate(req.params);
+  if (error) {
+    res.status(400).json({ error: error.details[0].message });
+  } else {
+    try {
+      // Fetching data from the API
+      const url = `http://${process.env.SERVERNAME}:${process.env.PROXYPORT}/api/getbyid/${value.id}`;
+      const response = await fetch(url);
+      // Checking if the response is OK
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const result = await response.json();
+      res.render("edit", {
+        title: "LinkBank - Edit Link",
+        topicH1: "LinkBank",
+        editable: result[0],
+      });
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      // Rendering the template with fallback values
+      res.render("edit", {
+        title: "LinkBank - Error",
+        topicH1: "Error",
+        editable: {
+          id: -1,
+          linkName: "Error",
+          link: "Error",
+          description: "Error",
+        },
       });
     }
   }

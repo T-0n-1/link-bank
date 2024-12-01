@@ -20,6 +20,10 @@ function editItem(id) {
   window.location.href = `/api/edit/${id}`;
 }
 
+function cancelEdit() {
+  window.location.href = "/api/links"; // Change "/links" to the desired route
+}
+
 function submitEdit(event) {
   event.preventDefault();
 
@@ -33,7 +37,7 @@ function submitEdit(event) {
   const payload = { id, linkName, link, description };
 
   // Send the PUT request to the server
-  fetch("/update", {
+  fetch("/api/update", {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -51,7 +55,7 @@ function submitEdit(event) {
     .then((data) => {
       alert(data.message || "Update successful!");
       // Optionally redirect or refresh the page
-      location.href = "/links"; // Adjust as needed
+      location.href = "/api/links"; // Adjust as needed
     })
     .catch((error) => {
       console.error("Error updating the link:", error);

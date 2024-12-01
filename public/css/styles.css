@@ -153,3 +153,7 @@ button {
   margin-bottom: 3%;
   margin-right: 0.7%;
 }
+
+form > label {
+  margin-bottom: 12%;
+}

@@ -6,7 +6,7 @@ GET http://{{$dotenv SERVERNAME}}:{{$dotenv PROXYPORT}}/api/getall
 
 GET http://{{$dotenv SERVERNAME}}:{{$dotenv PROXYPORT}}/api/getbyid/3
 
-### edit link by id using GET method and rendering of edit form
+### edit link using GET method by id and rendering of edit form
 
 GET http://{{$dotenv SERVERNAME}}:{{$dotenv PROXYPORT}}/api/edit/3
 

@@ -5,7 +5,6 @@ import dotenv from "dotenv";
 import type { EJSData } from "../Interfaces";
 import axios from "axios";
 import { Link } from "../Interfaces";
-import path from "path";
 
 dotenv.config(); // Load environment variables from a .env file
 
@@ -15,7 +14,7 @@ let EJSData: EJSData[]; // Data to pass to the EJS template
 router.use(cors()); // Enable CORS for all origins
 router.use(express.json()); // Enable JSON body parsing
 router.use(express.urlencoded({ extended: true })); // Enable URL-encoded body parsing
-app.use(express.static(path.join(__dirname, "public"))); // Serve static files from the public directory
+router.use(express.static("public")); // Serve static files from the public directory
 
 // Route for rendering listOfAllLinks.ejs
 router.get("/links", async (req: Request, res: Response) => {
@@ -76,7 +75,7 @@ router.get("/edit/:id", async (req: Request, res: Response) => {
     }
     res.render("edit", {
       title: "LinkBank - Edit Link",
-      topicH1: "Edit Link",
+      topicH1: "LinkBank",
       editable: result[0], // Pass the fetched data to the template
     });
   } catch (error) {
@@ -140,7 +139,7 @@ router.get("/getbyid/:id", (req: Request, res: Response) => {
   }
 });
 
-// Route for GETting one row from the database
+// Route for POSTing new row to the database
 router.post("/insert", (req: Request, res: Response) => {
   const { error, value } = Joi.object({
     linkName: Joi.string().min(2).max(50).required(),

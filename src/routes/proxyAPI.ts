@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import type { EJSData } from "../Interfaces";
 import axios from "axios";
 import { Link } from "../Interfaces";
+import path from "path";
 
 dotenv.config(); // Load environment variables from a .env file
 
@@ -14,7 +15,7 @@ let EJSData: EJSData[]; // Data to pass to the EJS template
 router.use(cors()); // Enable CORS for all origins
 router.use(express.json()); // Enable JSON body parsing
 router.use(express.urlencoded({ extended: true })); // Enable URL-encoded body parsing
-router.use(express.static("public")); // Serve static files from the public directory
+app.use(express.static(path.join(__dirname, "public"))); // Serve static files from the public directory
 
 // Route for rendering listOfAllLinks.ejs
 router.get("/links", async (req: Request, res: Response) => {
@@ -56,39 +57,40 @@ router.get("/links", async (req: Request, res: Response) => {
 router.get("/edit/:id", async (req: Request, res: Response) => {
   const querySchema = Joi.object({
     id: Joi.number().integer().min(1).max(9999).required(),
-  }).unknown(false);
+  });
   const { value, error } = querySchema.validate(req.params);
   if (error) {
     res.status(400).json({ error: error.details[0].message });
-  } else {
-    try {
-      // Fetching data from the API
-      const url = `http://${process.env.SERVERNAME}:${process.env.PROXYPORT}/api/getbyid/${value.id}`;
-      const response = await fetch(url);
-      // Checking if the response is OK
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      const result = await response.json();
-      res.render("edit", {
-        title: "LinkBank - Edit Link",
-        topicH1: "LinkBank",
-        editable: result[0],
-      });
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      // Rendering the template with fallback values
-      res.render("edit", {
-        title: "LinkBank - Error",
-        topicH1: "Error",
-        editable: {
-          id: -1,
-          linkName: "Error",
-          link: "Error",
-          description: "Error",
-        },
-      });
+    return;
+  }
+  try {
+    const url = `http://${process.env.SERVERNAME}:${process.env.PROXYPORT}/api/getbyid/${value.id}`;
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
     }
+
+    const result = await response.json();
+    if (!Array.isArray(result) || result.length === 0) {
+      throw new Error("No data found for the given ID.");
+    }
+    res.render("edit", {
+      title: "LinkBank - Edit Link",
+      topicH1: "Edit Link",
+      editable: result[0], // Pass the fetched data to the template
+    });
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    res.render("edit", {
+      title: "LinkBank - Error",
+      topicH1: "Error",
+      editable: {
+        id: -1,
+        linkName: "Error",
+        link: "Error",
+        description: "Error",
+      },
+    });
   }
 });
 

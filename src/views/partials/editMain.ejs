@@ -2,19 +2,37 @@
   <section>
     <h2>Edit Link</h2>
     <form class="edit-form" id="editForm" onsubmit="submitEdit(event)">
+      <input type="hidden" id="editId" value="<%= editable.id %>" />
       <label>
         Link Text:
-        <input type="text" id="editText" required maxlength="255" />
+        <input
+          type="text"
+          id="editText"
+          required
+          maxlength="255"
+          value="<%= editable.linkName %>"
+        />
       </label>
       <br />
       <label>
         Link URL:
-        <input type="url" id="editUrl" required maxlength="2048" />
+        <input
+          type="url"
+          id="editUrl"
+          required
+          maxlength="2048"
+          value="<%= editable.link %>"
+        />
       </label>
       <br />
       <label>
         Link Description:
-        <input type="url" id="editDescription" required maxlength="2048" />
+        <input
+          type="text"
+          id="editDescription"
+          maxlength="2048"
+          value="<%= editable.description %>"
+        />
       </label>
       <br />
       <button type="submit">Save</button>

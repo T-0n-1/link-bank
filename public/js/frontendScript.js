@@ -14,42 +14,47 @@ function deleteItem(id) {
     });
 }
 
-let currentLinkElement = null; // Store the link being edited
-
-function showEditForm(linkElement) {
-  // Populate the form with the link's existing text and URL
-  currentLinkElement = linkElement;
-  const form = document.getElementById("editForm");
-  document.getElementById("editText").value = linkElement.textContent;
-  document.getElementById("editUrl").value = linkElement.href;
-  form.style.display = "block"; // Show the form
+function editItem(id) {
+  // Redirect the user to the edit page
+  const parsedId = parseInt(id);
+  window.location.href = `/api/edit/${id}`;
 }
 
 function submitEdit(event) {
-  event.preventDefault(); // Prevent form submission from reloading the page
+  event.preventDefault();
 
-  // Validate and sanitize input
-  const newText = sanitizeInput(document.getElementById("editText").value);
-  const newUrl = sanitizeInput(document.getElementById("editUrl").value);
+  // Collect values from the form
+  const id = document.getElementById("editId").value;
+  const linkName = document.getElementById("editText").value;
+  const link = document.getElementById("editUrl").value;
+  const description = document.getElementById("editDescription").value;
 
-  if (currentLinkElement) {
-    // Update the link element
-    currentLinkElement.textContent = newText;
-    currentLinkElement.href = newUrl;
-  }
+  // Prepare the request payload
+  const payload = { id, linkName, link, description };
 
-  cancelEdit(); // Hide the form
-}
-
-function cancelEdit() {
-  // Hide the form
-  document.getElementById("editForm").style.display = "none";
-  currentLinkElement = null; // Clear the current link reference
-}
-
-function sanitizeInput(input) {
-  // Basic sanitization to escape HTML special characters
-  const div = document.createElement("div");
-  div.textContent = input;
-  return div.innerHTML;
+  // Send the PUT request to the server
+  fetch("/update", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        return response.json().then((data) => {
+          throw new Error(data.error || "Failed to update the link.");
+        });
+      }
+      return response.json();
+    })
+    .then((data) => {
+      alert(data.message || "Update successful!");
+      // Optionally redirect or refresh the page
+      location.href = "/links"; // Adjust as needed
+    })
+    .catch((error) => {
+      console.error("Error updating the link:", error);
+      alert(error.message || "An unexpected error occurred.");
+    });
 }

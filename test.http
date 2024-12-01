@@ -6,6 +6,10 @@ GET http://{{$dotenv SERVERNAME}}:{{$dotenv PROXYPORT}}/api/getall
 
 GET http://{{$dotenv SERVERNAME}}:{{$dotenv PROXYPORT}}/api/getbyid/3
 
+### edit link by id using GET method and rendering of edit form
+
+GET http://{{$dotenv SERVERNAME}}:{{$dotenv PROXYPORT}}/api/edit/3
+
 ### POST new link
 
 POST http://{{$dotenv SERVERNAME}}:{{$dotenv PROXYPORT}}/api/insert

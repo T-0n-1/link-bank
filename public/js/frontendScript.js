@@ -29,7 +29,11 @@ function editItem(id) {
 }
 
 function cancelEdit() {
-  window.location.href = "/api/links"; // Change "/links" to the desired route
+  if (document.getElementById("editId")) {
+    window.location.href = "/api/links";
+  } else {
+    window.location.href = "/";
+  }
 }
 
 function submitEdit(event) {
@@ -56,8 +60,7 @@ function submitEdit(event) {
     })
     .then((data) => {
       alert(data.message || "Update successful!");
-      // Optionally redirect or refresh the page
-      location.href = "/api/links"; // Adjust as needed
+      location.href = "/api/links";
     })
     .catch((error) => {
       console.error("Error updating the link:", error);
@@ -67,12 +70,9 @@ function submitEdit(event) {
 
 function submitNew(event) {
   event.preventDefault();
-
   const linkName = document.getElementById("editText").value;
   const link = document.getElementById("editUrl").value;
   const description = document.getElementById("editDescription").value;
-
-  // POST request to create a new link
   fetch("/api/insert", {
     method: "POST",
     headers: {

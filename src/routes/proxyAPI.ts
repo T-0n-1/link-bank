@@ -68,7 +68,6 @@ router.get("/edit/:id", async (req: Request, res: Response) => {
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
-
     const result = await response.json();
     if (!Array.isArray(result) || result.length === 0) {
       throw new Error("No data found for the given ID.");
@@ -88,6 +87,26 @@ router.get("/edit/:id", async (req: Request, res: Response) => {
         linkName: "Error",
         link: "Error",
         description: "Error",
+      },
+    });
+  }
+});
+
+router.get("/new", (req, res) => {
+  const querySchema = Joi.object().unknown(false);
+  const { error } = querySchema.validate(req.query);
+  if (error) {
+    res.status(400).json({ error: error.details[0].message });
+    return;
+  } else {
+    res.render("edit", {
+      title: "LinkBank - New Link",
+      topicH1: "Add New Link",
+      editable: {
+        id: null, // No ID for new links
+        linkName: "",
+        link: "",
+        description: "",
       },
     });
   }

@@ -62,3 +62,36 @@ function submitEdit(event) {
       alert(error.message || "An unexpected error occurred.");
     });
 }
+
+function submitNew(event) {
+  event.preventDefault();
+
+  const linkName = document.getElementById("editText").value;
+  const link = document.getElementById("editUrl").value;
+  const description = document.getElementById("editDescription").value;
+
+  // POST request to create a new link
+  fetch("/api/insert", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ linkName, link, description }),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        return response.json().then((data) => {
+          throw new Error(data.error || "Failed to add the new link.");
+        });
+      }
+      return response.json();
+    })
+    .then((data) => {
+      alert(data.message || "Link added successfully!");
+      window.location.href = "/api/links"; // Redirect to the main list
+    })
+    .catch((error) => {
+      console.error("Error adding new link:", error);
+      alert(error.message || "An unexpected error occurred.");
+    });
+}

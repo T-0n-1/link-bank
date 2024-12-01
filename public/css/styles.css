@@ -154,6 +154,23 @@ button {
   margin-right: 0.7%;
 }
 
-form > label {
-  margin-bottom: 12%;
+.edit-form label {
+  display: block; /* Ensure each label occupies a full line */
+  margin-bottom: 10px; /* Space between label and its input */
+}
+
+.edit-form input,
+.edit-form textarea {
+  display: block; /* Ensure inputs occupy a full line */
+  margin-bottom: 20px; /* Add space between inputs */
+  width: 100%; /* Make inputs take the full width of the container */
+  max-width: 500px; /* Optional: Limit the maximum width */
+  padding: 8px; /* Add some padding inside the input */
+  font-size: 16px; /* Improve readability */
+}
+
+.edit-form button {
+  margin-right: 10px; /* Add space between the Save and Cancel buttons */
+  padding: 10px 15px; /* Add padding for better clickability */
+  font-size: 16px; /* Consistent font size */
 }

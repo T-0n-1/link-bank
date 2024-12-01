@@ -27,13 +27,11 @@
       <br />
       <label>
         Link Description:
-        <input
-          type="text"
-          id="editDescription"
-          maxlength="2048"
-          value="<%= editable.description %>"
-        />
+        <textarea id="editDescription" rows="3" maxlength="2048">
+<%= editable.description %></textarea
+        >
       </label>
+
       <br />
       <button type="submit">Save</button>
       <button type="button" onclick="cancelEdit()">Cancel</button>

@@ -1,6 +1,10 @@
 /* eslint-disable no-useless-escape */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 function deleteItem(id) {
+  const confirmation = window.confirm("Are you sure you want to delete this item?");
+    if (!confirmation) {
+        return;
+    }
   const cleanedId = id.replace(/[\[\]\s]/g, "");
   const urlParts = cleanedId.split(",");
   if (urlParts.length !== 3) {

@@ -24,16 +24,13 @@ router.get("/links", async (req: Request, res: Response) => {
     res.status(400).json({ error: error.details[0].message });
   } else {
     try {
-      // Fetching data from the API
       const helperURL = `${process.env.SERVERNAME}, ${process.env.PROXYPORT}`;
       const url = `http://${process.env.SERVERNAME}:${process.env.PROXYPORT}/api/getAll`;
       const response = await fetch(url);
-      // Checking if the response is OK
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
       const result: Link[] = await response.json();
-      // Rendering the template with data
       res.render("list", {
         title: "LinkBank - List of all Links",
         topicH1: "LinkBank",
@@ -42,7 +39,6 @@ router.get("/links", async (req: Request, res: Response) => {
       });
     } catch (error) {
       console.error("Error fetching data:", error);
-      // Rendering the template with fallback values
       res.render("list", {
         title: "LinkBank - Error",
         topicH1: "Error",
@@ -75,7 +71,7 @@ router.get("/edit/:id", async (req: Request, res: Response) => {
     res.render("edit", {
       title: "LinkBank - Edit Link",
       topicH1: "LinkBank",
-      editable: result[0], // Pass the fetched data to the template
+      editable: result[0],
     });
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -92,6 +88,7 @@ router.get("/edit/:id", async (req: Request, res: Response) => {
   }
 });
 
+// Route for rendering newLink page
 router.get("/new", (req, res) => {
   const querySchema = Joi.object().unknown(false);
   const { error } = querySchema.validate(req.query);
@@ -101,7 +98,7 @@ router.get("/new", (req, res) => {
   } else {
     res.render("edit", {
       title: "LinkBank - New Link",
-      topicH1: "Add New Link",
+      topicH1: "LinkBank",
       editable: {
         id: null, // No ID for new links
         linkName: "",

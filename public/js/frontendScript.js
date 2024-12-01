@@ -1,21 +1,29 @@
+/* eslint-disable no-useless-escape */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 function deleteItem(id) {
-    const url = id.split(",");
-    url[0] = url[0].replace("[", "");
-    url[1] = url[1].replace(" ", "");
-    url[2] = url[2].replace(" ", "");
-    url[2] = url[2].replace("]", "");
-    fetch(`http://${url[0]}:${url[1]}/api/delete/${url[2]}`, {
-        method: 'DELETE',
-    }).then((response) => {
-        if (response.ok) {
-            location.reload();
-        } 
-    });
+  const cleanedId = id.replace(/[\[\]\s]/g, "");
+  const urlParts = cleanedId.split(",");
+  if (urlParts.length !== 3) {
+      console.error("Invalid ID format. Expected format: [server, port, id]");
+      return;
+  }
+  const [server, port, resourceId] = urlParts;
+  fetch(`http://${server}:${port}/api/delete/${resourceId}`, {
+      method: "DELETE",
+  })
+  .then((response) => {
+      if (response.ok) {
+          location.reload();
+      } else {
+          console.error("Failed to delete item:", response.status);
+      }
+  })
+  .catch((error) => {
+      console.error("Error during delete request:", error);
+  });
 }
 
 function editItem(id) {
-  // Redirect the user to the edit page
   const parsedId = parseInt(id);
   window.location.href = `/api/edit/${id}`;
 }
@@ -26,17 +34,11 @@ function cancelEdit() {
 
 function submitEdit(event) {
   event.preventDefault();
-
-  // Collect values from the form
   const id = document.getElementById("editId").value;
   const linkName = document.getElementById("editText").value;
   const link = document.getElementById("editUrl").value;
   const description = document.getElementById("editDescription").value;
-
-  // Prepare the request payload
   const payload = { id, linkName, link, description };
-
-  // Send the PUT request to the server
   fetch("/api/update", {
     method: "PUT",
     headers: {
@@ -88,7 +90,7 @@ function submitNew(event) {
     })
     .then((data) => {
       alert(data.message || "Link added successfully!");
-      window.location.href = "/api/links"; // Redirect to the main list
+      window.location.href = "/api/links";
     })
     .catch((error) => {
       console.error("Error adding new link:", error);

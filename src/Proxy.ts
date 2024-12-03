@@ -8,7 +8,7 @@ import path from "path";
 
 dotenv.config(); // Load environment variables from a .env file
 
-const port: number = Number(process.env.PROXYPORT) || 3210; // Port the server will listen on
+const port: number = Number(process.env.PROXYPORT) || 4330; // Port the server will listen on
 
 const app: Express = express(); // Create an Express application
 let EJSData: EJSData; // Data to pass to the EJS template

@@ -5,7 +5,7 @@ import backendRouter from "./routes/backendAPI";
 
 dotenv.config(); // Load environment variables from a .env file
 
-const port: number = Number(process.env.BACKENDPORT) || 3456; // Port the server will listen on
+const port: number = Number(process.env.BACKENDPORT) || 4399; // Port the server will listen on
 
 const app: Express = express(); // Create an Express application
 

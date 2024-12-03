@@ -103,9 +103,9 @@ router.post("/insert", (req: Request, res: Response) => {
 router.put("/update", (req: Request, res: Response) => {
   const schema = Joi.object({
     id: Joi.number().integer().min(1).max(9999).required(),
-    linkName: Joi.string().max(15).optional(),
+    linkName: Joi.string().max(50).optional(),
     link: Joi.string().uri().optional(),
-    description: Joi.string().optional(),
+    description: Joi.string().max(400).optional(),
   }).unknown(false);
   const { error, value } = schema.validate(req.body);
   if (error) {

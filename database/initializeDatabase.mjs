@@ -47,7 +47,7 @@ function runSQLCommands() {
                 ('Toni Mertanen', 'https://tonimertanen.fi', 'Portfolio website of Toni Mertanen'),
                 ('Webbidevaus.fi', 'https://webbidevaus.fi', 'Website for web development podcast Webbidevaus.fi'),
                 ('Turvakäräjät', 'https://turvakarajat.fi', 'Website for cybersecurity podcast Turvakäräjät'),
-                ('Herrasmieshakkerit', 'https://herrasmieshakkerit.fi', 'Website for cybersecurity podcast Herrassmieshakkerit - hosts Mikko Hyppönen and Tomi Tuominen');
+                ('Herrasmieshakkerit', 'https://herrasmieshakkerit.fi', 'Website for cybersecurity podcast Herrasmieshakkerit - hosts Mikko Hyppönen and Tomi Tuominen');
         `, [process.env.DBTABLE]);
     console.log(`Inserted ${result.affectedRows} rows into the Person table.`);
   } catch (error) {

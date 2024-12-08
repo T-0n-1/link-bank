@@ -24,7 +24,6 @@ router.get("/links", async (req: Request, res: Response) => {
     res.status(400).json({ error: error.details[0].message });
   } else {
     try {
-      const helperURL = `${process.env.SERVERNAME}, ${process.env.PROXYPORT}`;
       const url = `http://${process.env.SERVERNAME}:${process.env.PROXYPORT}/api/getAll`;
       const response = await fetch(url);
       if (!response.ok) {
@@ -34,7 +33,6 @@ router.get("/links", async (req: Request, res: Response) => {
       res.render("list", {
         title: "LinkBank - List of all Links",
         topicH1: "LinkBank",
-        url: helperURL,
         links: result,
       });
     } catch (error) {

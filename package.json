@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "initDB": "node ./database/initializeDatabase.mjs",
     "start": "node start.mjs",
-    "dev": "concurrently \"nodemon --config nodemon-ejs.json\" \"nodemon --config nodemon-app.json\" \"browser-sync start --config bs-config.js\"",
+    "dev": "concurrently \"nodemon --config nodemon-ejs.json\" \"nodemon --config nodemon-app.json\" \"NODE_ENV='development' browser-sync start --config bs-config.js\"",
     "predev": "tsc -w & node ./dist/Backend.js &"
   },
   "repository": {

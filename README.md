@@ -104,7 +104,7 @@ Runs compiled Proxy.js in dist folder in development environment and concurrentl
 "dev": "concurrently \"nodemon --config nodemon-ejs.json\" \"nodemon --config nodemon-app.json\" \"NODE_ENV='development' browser-sync start --config bs-config.js\"",
 ```
 
-Runs two different Nodemon instances -each with own config file- and browser-sync concurrently - at the same time. This script is used in dev environment (NODE_ENV = "development" takes care of that) and so the start.mjs file starts only proxy server.
+Runs two different Nodemon instances -each with own config file- and browser-sync concurrently - at the same time. This script is used in dev environment (NODE_ENV = "development" takes care of that) and so the start.mjs file starts only proxy server. You may want to run `tsc` command after getting the code from GitHub, because it will compile TypeScript files from src folder to dist folder. After that you may use `npm run dev` or `npm start`.
 
 > nodemon-app.json
 >
